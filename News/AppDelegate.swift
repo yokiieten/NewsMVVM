@@ -13,7 +13,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+//        // To change background colour.
+//        UINavigationBar.appearance().barTintColor = .init(red: 23.0/255, green: 197.0/255, blue: 157.0/255, alpha: 1.0)
+//        // To change colour of tappable items.
+//        UINavigationBar.appearance().tintColor = .white
+//        // To apply textAttributes to title i.e. colour, font etc.
+//        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.white,
+//                                                            .font : UIFont.init(name: "AvenirNext-DemiBold", size: 22.0)!]
+//        // To control navigation bar's translucency.
+//        UINavigationBar.appearance().isTranslucent = false
+      
         return true
     }
 

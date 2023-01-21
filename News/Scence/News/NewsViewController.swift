@@ -11,12 +11,12 @@ import RxSwift
 class NewsViewController: UIViewController {
     
     let disposeBag = DisposeBag()
-    private var articleListVM: ArticleListViewModel!
+    var articleListVM: ArticleListViewModel!
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        //self.navigationController?.navigationBar.prefersLargeTitles = true
         setupTableView()
         poppulateNews()
     }
@@ -34,11 +34,17 @@ class NewsViewController: UIViewController {
             .subscribe(onNext: { articleResponse in
                 let articles = articleResponse.articles
                 self.articleListVM = ArticleListViewModel(articles)
-                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
             }).disposed(by: disposeBag)
+    }
+    
+    private func pushViewController(index: Int) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detailNewsVC = storyboard.instantiateViewController(withIdentifier: "DetailNewsViewController") as! DetailNewsViewController
+        detailNewsVC.detailNewsViewModel.article = articleListVM.articleAt(index)
+        navigationController?.pushViewController(detailNewsVC, animated: true)
     }
     
 }
@@ -81,6 +87,18 @@ extension NewsViewController: UITableViewDataSource {
 
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("hello")
+        pushViewController(index: indexPath.row)
     }
+}
+
+extension NewsViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else {return}
+        
+    }
+    
 }

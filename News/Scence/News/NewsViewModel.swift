@@ -15,6 +15,7 @@ struct ArticleListViewModel {
 }
 
 extension ArticleListViewModel {
+    
   init(_ articles: [Article]) {
     self.articlesVM = articles.compactMap(ArticleViewModel.init)
   }
@@ -22,6 +23,8 @@ extension ArticleListViewModel {
   func articleAt(_ index: Int) -> ArticleViewModel {
     return self.articlesVM[index]
   }
+    
+    
 }
 
 struct ArticleViewModel {
@@ -41,11 +44,14 @@ extension ArticleViewModel {
     return Observable<String>.just(article.description ?? "")
   }
     
-    var urlToImage: Observable<String> {
+  var urlToImage: Observable<String> {
         return Observable<String>.just(article.urlToImage ?? "")
       }
+    
     var publishedAt: Observable<String> {
-        return Observable<String>.just(article.publishedAt ?? "")
+        let date: String = DateFormatComponent().format(dateString: article.publishedAt ?? "",
+                                                        sourcePattern: .transactionDateTimeAPI, destinationPattern: .hour).lowercased()
+        return Observable<String>.just(date)
       }
     var content: Observable<String> {
         return Observable<String>.just(article.content ?? "")
