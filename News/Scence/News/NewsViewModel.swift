@@ -37,7 +37,18 @@ extension ArticleViewModel {
     return Observable<String>.just(article.title)
   }
   
-  var description : Observable<String> {
+  var description: Observable<String> {
     return Observable<String>.just(article.description ?? "")
   }
+    
+    var urlToImage: Observable<String> {
+        return Observable<String>.just(article.urlToImage ?? "")
+      }
+    var publishedAt: Observable<String> {
+        return Observable<String>.just(article.publishedAt ?? "")
+      }
+    var content: Observable<String> {
+        return Observable<String>.just(article.content ?? "")
+      }
 }
+

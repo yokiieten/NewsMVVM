@@ -6,6 +6,7 @@ target 'News' do
   use_frameworks!
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'SDWebImage', '4.1.2'
   # Pods for News
 
 end

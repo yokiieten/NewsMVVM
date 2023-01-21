@@ -16,54 +16,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="7nI-LD-EHh">
-                                <rect key="frame" x="0.0" y="59" width="393" height="40"/>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="iWb-aE-CIz">
+                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="SQP-cw-LAZ"/>
+                                    <constraint firstAttribute="height" constant="44" id="9pC-S4-3n9"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="6E1-2G-qp2"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="qMe-bJ-qBg"/>
                                 </connections>
                             </searchBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kOI-qZ-BqJ">
-                                <rect key="frame" x="0.0" y="99" width="393" height="719"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="M37-zL-2Un">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uF7-Ks-Baf">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="7nI-LD-EHh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PCh-I7-ggZ"/>
-                            <constraint firstItem="kOI-qZ-BqJ" firstAttribute="top" secondItem="7nI-LD-EHh" secondAttribute="bottom" id="efj-b6-IZC"/>
-                            <constraint firstItem="7nI-LD-EHh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fht-eM-4y5"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kOI-qZ-BqJ" secondAttribute="trailing" id="kIH-Lt-Otm"/>
-                            <constraint firstItem="kOI-qZ-BqJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sLI-qS-8Wr"/>
-                            <constraint firstItem="7nI-LD-EHh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ygY-n9-Gyh"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kOI-qZ-BqJ" secondAttribute="bottom" id="zwI-Fi-vEw"/>
+                            <constraint firstItem="M37-zL-2Un" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3hs-oI-a3E"/>
+                            <constraint firstItem="iWb-aE-CIz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Bcr-90-ULB"/>
+                            <constraint firstItem="iWb-aE-CIz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Kjq-fX-wqR"/>
+                            <constraint firstItem="iWb-aE-CIz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="TkP-iT-FoY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="M37-zL-2Un" secondAttribute="bottom" id="ohq-v9-nCs"/>
+                            <constraint firstItem="M37-zL-2Un" firstAttribute="top" secondItem="iWb-aE-CIz" secondAttribute="bottom" id="ovf-TM-KYr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="M37-zL-2Un" secondAttribute="trailing" id="ui7-bQ-mG1"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="searchDisplayController" destination="PF6-Ru-8K3" id="ZxI-IV-Ws8"/>
+                        <outlet property="tableView" destination="M37-zL-2Un" id="t0R-gb-2g2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="PF6-Ru-8K3">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="JuV-iD-Gkm"/>
-                        <outlet property="searchBar" destination="7nI-LD-EHh" id="e9q-Ku-M27"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="iYP-HI-E8n"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="u4b-3a-k0s"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="AfI-Cg-Hav"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="132" y="-34"/>
         </scene>
