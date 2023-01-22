@@ -52,7 +52,7 @@ class NewsViewController: UIViewController {
 extension NewsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.articleListVM == nil ? 0: self.articleListVM.articlesVM.count
+        return self.articleListVM == nil ? 0: self.articleListVM.filterArticlesVM.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,11 +94,23 @@ extension NewsViewController: UITableViewDelegate {
 extension NewsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            self.articleListVM.filterArticlesVM = articleListVM.articlesVM
+        } else {
+            var titleSearch: String = ""
+            self.articleListVM.filterArticlesVM = self.articleListVM.articlesVM.filter { news in
+                news.title.subscribe { title in
+                    titleSearch = title
+                }.disposed(by: disposeBag)
+                return titleSearch.contains(searchText)
+            }
+        }
+        tableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
         guard let text = searchBar.text else {return}
-        
     }
     
 }
