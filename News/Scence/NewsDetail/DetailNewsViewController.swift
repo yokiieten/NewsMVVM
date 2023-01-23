@@ -51,9 +51,14 @@ class DetailNewsViewController: UIViewController {
             .disposed(by: disposeBag)
         
         detailNewsViewModel.article?.urlToImage.subscribe(onNext: { urlToImage in
-            let imagePath: String = urlToImage
-            let imageUrl = URL(string: imagePath)
-            self.newsImage?.setImage(with: imageUrl)
+            if urlToImage.isEmpty {
+                self.newsImage.image = UIImage(named:"nodata")
+            } else {
+                let imagePath: String = urlToImage
+                let imageUrl = URL(string: imagePath)
+                
+                self.newsImage?.setImage(with: imageUrl)
+            }
         }).disposed(by: disposeBag)
         
         detailNewsViewModel.article?.source.asDriver(onErrorJustReturn: "")

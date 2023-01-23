@@ -17,7 +17,7 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        poppulateNews()
+        callAPINews()
         setupBackgroundView()
     }
     
@@ -35,7 +35,7 @@ class NewsViewController: UIViewController {
         tableView.dataSource = self
     }
     
-    private func poppulateNews() {
+    private func callAPINews() {
         let resource = Resource<ArticleResponse>(url: URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(API.apiKey)")!)
         
         URLRequest.load(resource: resource)
@@ -83,9 +83,14 @@ extension NewsViewController: UITableViewDataSource {
             .disposed(by: disposeBag)
         
         articleVM.urlToImage.subscribe(onNext: { urlToImage in
-            let imagePath: String = urlToImage
-            let imageUrl = URL(string: imagePath)
-            cell.newsImage?.setImage(with: imageUrl)
+            if urlToImage.isEmpty {
+                cell.newsImage.image = UIImage(named:"nodata")
+            } else {
+                let imagePath: String = urlToImage
+                let imageUrl = URL(string: imagePath)
+                
+                cell.newsImage?.setImage(with: imageUrl)
+            }
         }).disposed(by: disposeBag)
         
         articleVM.source.asDriver(onErrorJustReturn: "")

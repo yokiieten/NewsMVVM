@@ -23,7 +23,6 @@ extension URLRequest {
         let request = URLRequest(url: url)
         return URLSession.shared.rx.data(request: request)
       }.map { data -> T in
-        print("DDD",data)
         return try JSONDecoder().decode(T.self, from: data)
       }
   }
