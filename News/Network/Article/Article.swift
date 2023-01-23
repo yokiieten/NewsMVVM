@@ -25,3 +25,7 @@ struct Source: Decodable {
     let id: String?
     let name: String?
 }
+
+ struct API {
+     static let apiKey: String = "6b20b05ef9e44a87804b0281c77a7f91"
+}

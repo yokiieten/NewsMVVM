@@ -15,6 +15,8 @@ class DetailNewsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var sourceLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -40,6 +42,10 @@ class DetailNewsViewController: UIViewController {
             .drive(contentLabel.rx.text)
             .disposed(by: disposeBag)
         
+        detailNewsViewModel.article?.description.asDriver(onErrorJustReturn: "")
+            .drive(descriptionLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         detailNewsViewModel.article?.publishedAt.asDriver(onErrorJustReturn: "")
             .drive(dateLabel.rx.text)
             .disposed(by: disposeBag)
@@ -49,7 +55,10 @@ class DetailNewsViewController: UIViewController {
             let imageUrl = URL(string: imagePath)
             self.newsImage?.setImage(with: imageUrl)
         }).disposed(by: disposeBag)
-       
+        
+        detailNewsViewModel.article?.source.asDriver(onErrorJustReturn: "")
+            .drive(sourceLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     
 }

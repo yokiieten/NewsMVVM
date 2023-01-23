@@ -56,7 +56,11 @@ extension ArticleViewModel {
         return Observable<String>.just(date)
     }
     var content: Observable<String> {
-        return Observable<String>.just(article.content ?? "")
+        return Observable<String>.just(article.content ?? "No Content")
+    }
+    
+    var source: Observable<String> {
+        return Observable<String>.just(article.source?.name ?? "")
     }
 }
 

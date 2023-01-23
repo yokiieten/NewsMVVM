@@ -36,7 +36,7 @@ class NewsViewController: UIViewController {
     }
     
     private func poppulateNews() {
-        let resource = Resource<ArticleResponse>(url: URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=6b20b05ef9e44a87804b0281c77a7f91")!)
+        let resource = Resource<ArticleResponse>(url: URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(API.apiKey)")!)
         
         URLRequest.load(resource: resource)
             .subscribe(onNext: { articleResponse in
@@ -71,7 +71,7 @@ extension NewsViewController: UITableViewDataSource {
         
         let articleVM = self.articleListVM.articleAt(indexPath.row)
         articleVM.title.asDriver(onErrorJustReturn: "")
-            .drive(cell.headerLabel.rx.text)
+            .drive(cell.titleLabel.rx.text)
             .disposed(by: disposeBag)
         
         articleVM.description.asDriver(onErrorJustReturn: "")
@@ -79,7 +79,7 @@ extension NewsViewController: UITableViewDataSource {
             .disposed(by: disposeBag)
         
         articleVM.publishedAt.asDriver(onErrorJustReturn: "")
-            .drive(cell.timeAndSource.rx.text)
+            .drive(cell.timeLabel.rx.text)
             .disposed(by: disposeBag)
         
         articleVM.urlToImage.subscribe(onNext: { urlToImage in
@@ -87,6 +87,10 @@ extension NewsViewController: UITableViewDataSource {
             let imageUrl = URL(string: imagePath)
             cell.newsImage?.setImage(with: imageUrl)
         }).disposed(by: disposeBag)
+        
+        articleVM.source.asDriver(onErrorJustReturn: "")
+            .drive(cell.sourceLabel.rx.text)
+            .disposed(by: disposeBag)
         
         return cell
     }
@@ -118,7 +122,6 @@ extension NewsViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        guard let text = searchBar.text else {return}
     }
     
 }
