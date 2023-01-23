@@ -7,15 +7,21 @@
 
 import Foundation
 
-struct ArticleResponse : Decodable {
-  let articles: [Article]
+struct ArticleResponse: Decodable {
+    let articles: [Article]
 }
 
 
-struct Article : Decodable {
-  let title : String
-  let description: String?
-  let urlToImage: String?
-  let publishedAt: String?
-  let content: String?
+struct Article: Decodable {
+    let title: String
+    let description: String?
+    let urlToImage: String?
+    let publishedAt: String?
+    let content: String?
+    let source: Source?
+}
+
+struct Source: Decodable {
+    let id: String?
+    let name: String?
 }

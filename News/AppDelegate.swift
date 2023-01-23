@@ -9,20 +9,26 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var orientationLock = UIInterfaceOrientationMask.all
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return self.orientationLock
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
 //        // To change background colour.
 //        UINavigationBar.appearance().barTintColor = .init(red: 23.0/255, green: 197.0/255, blue: 157.0/255, alpha: 1.0)
-//        // To change colour of tappable items.
-//        UINavigationBar.appearance().tintColor = .white
-//        // To apply textAttributes to title i.e. colour, font etc.
-//        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.white,
-//                                                            .font : UIFont.init(name: "AvenirNext-DemiBold", size: 22.0)!]
+        // To change colour of tappable items.
+        UINavigationBar.appearance().tintColor = .white
+        // To apply textAttributes to title i.e. colour, font etc.
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.white,
+                                                            .font : UIFont.init(name: "AvenirNext-DemiBold", size: 22.0)!]
 //        // To control navigation bar's translucency.
 //        UINavigationBar.appearance().isTranslucent = false
+        
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
       
         return true
     }
@@ -40,7 +46,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
+    
+    struct AppUtility {
+        static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
+            if let delegate = UIApplication.shared.delegate as? AppDelegate {
+                delegate.orientationLock = orientation
+            }
+        }
+        
+        static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
+            self.lockOrientation(orientation)
+            UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+        }
+    }
 
 }
 

@@ -23,7 +23,7 @@ extension ArticleListViewModel {
     }
     
     func articleAt(_ index: Int) -> ArticleViewModel {
-        return self.filterArticlesVM[index] 
+        return self.filterArticlesVM[index]
     }
     
     

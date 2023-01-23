@@ -20,6 +20,15 @@ class DetailNewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupBackgroundView()
+    }
+    
+    private func setupBackgroundView() {
+        let image = UIImage(named: "bgdetail")
+        let imageView = UIImageView(image: image!)
+        imageView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        imageView.contentMode = .scaleToFill
+        self.view.insertSubview(imageView, at: 0)
     }
     
     private func setupView() {
@@ -43,15 +52,4 @@ class DetailNewsViewController: UIViewController {
        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -16,9 +16,17 @@ class NewsViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.navigationBar.prefersLargeTitles = true
         setupTableView()
         poppulateNews()
+        setupBackgroundView()
+    }
+    
+    private func setupBackgroundView() {
+        let image = UIImage(named: "bg")
+        let imageView = UIImageView(image: image!)
+        imageView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        imageView.contentMode = .scaleToFill
+        self.view.insertSubview(imageView, at: 0)
     }
     
     private func setupTableView() {
@@ -71,7 +79,7 @@ extension NewsViewController: UITableViewDataSource {
             .disposed(by: disposeBag)
         
         articleVM.publishedAt.asDriver(onErrorJustReturn: "")
-            .drive(cell.time.rx.text)
+            .drive(cell.timeAndSource.rx.text)
             .disposed(by: disposeBag)
         
         articleVM.urlToImage.subscribe(onNext: { urlToImage in
