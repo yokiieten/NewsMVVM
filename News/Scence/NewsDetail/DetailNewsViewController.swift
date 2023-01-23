@@ -21,8 +21,12 @@ class DetailNewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+       
         setupBackgroundView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setupView()
     }
     
     private func setupBackgroundView() {
@@ -64,6 +68,26 @@ class DetailNewsViewController: UIViewController {
         detailNewsViewModel.article?.source.asDriver(onErrorJustReturn: "")
             .drive(sourceLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        setupAnimation()
+    }
+    
+    private func setupAnimation() {
+        newsImage.center.x = view.center.x
+        newsImage.center.x -= view.bounds.width
+        titleLabel.center.x = view.center.x
+        titleLabel.center.x -= view.bounds.width
+        descriptionLabel.center.x = view.center.x
+        descriptionLabel.center.x -= view.bounds.width
+        contentLabel.center.x = view.center.x
+        contentLabel.center.x -= view.bounds.width
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
+            self.newsImage.center.x += self.view.bounds.width
+            self.titleLabel.center.x += self.view.bounds.width
+            self.descriptionLabel.center.x += self.view.bounds.width
+            self.contentLabel.center.x += self.view.bounds.width
+                  self.view.layoutIfNeeded()
+            }, completion: nil)
     }
     
 }

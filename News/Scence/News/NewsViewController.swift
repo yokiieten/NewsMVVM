@@ -10,12 +10,15 @@ import RxSwift
 
 class NewsViewController: UIViewController {
     
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     let disposeBag = DisposeBag()
     var articleListVM: ArticleListViewModel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
+        showSpinner()
         setupTableView()
         callAPINews()
         setupBackgroundView()
@@ -43,6 +46,7 @@ class NewsViewController: UIViewController {
                 let articles = articleResponse.articles
                 self.articleListVM = ArticleListViewModel(articles)
                 DispatchQueue.main.async {
+                    self.hideSpinner()
                     self.tableView.reloadData()
                 }
             }).disposed(by: disposeBag)
@@ -53,6 +57,16 @@ class NewsViewController: UIViewController {
         let detailNewsVC = storyboard.instantiateViewController(withIdentifier: "DetailNewsViewController") as! DetailNewsViewController
         detailNewsVC.detailNewsViewModel.article = articleListVM.articleAt(index)
         navigationController?.pushViewController(detailNewsVC, animated: true)
+    }
+    
+    private func showSpinner() {
+        activityIndicator.startAnimating()
+        loadingView.isHidden = false
+    }
+
+    private func hideSpinner() {
+        activityIndicator.stopAnimating()
+        loadingView.isHidden = true
     }
     
 }
@@ -96,6 +110,8 @@ extension NewsViewController: UITableViewDataSource {
         articleVM.source.asDriver(onErrorJustReturn: "")
             .drive(cell.sourceLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        cell.animation()
         
         return cell
     }
